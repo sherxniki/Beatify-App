@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block head %}{{super()}}{%endblock%}
+{%block title%}{{super()}}{%endblock%}
+{%block content%}
+{{super()}}
+{%for genre in genres %}
+    <div class="container head py-4 px-4 my-3 border border-1" style="background-color: rgb(248, 247, 247);">
+        <div class="row g-4">
+            <h1>{{genre}}</h1>
+            {%for song in songs%}
+            {% if song.artist.is_blacklisted == False and song.genre==genre %}
+            <div class="col-lg-3 col-md-4 col-6 p-3">
+                <a href="{{url_for('users.song',song_id = song.id)}}" class="text-decoration-none text-light">
+                <div class="beatify-card d-flex flex-column p-4 h-100" style="background-color: rgb(245, 242, 242);" >               
+                        <div>
+                            {%if song.cover_file%}
+                            <img src="{{url_for('main.load_song_image', song_id = song.id)}}" class="img-fluid  rounded-1 h-100 w-100">
+                            {%else%}
+                            <img src="{{url_for('static',filename='images/default.jpg')}}" class="img-fluid rounded-1 h-100 w-100" alt="">
+                            {%endif%}
+                        </div>
+                        <div class="fs-5 fw-bolder lh-sm mt-3 text-primary">
+                            {{song.title}}
+                        </div>
+                        <div class="fs-6 text-dark">
+                            {{song.artist.name}}
+                        </div>  
+                </div> 
+                </a>         
+            </div>
+            {% endif %}
+            {%endfor%}
+        </div>
+    </div>
+{%endfor%}
+    
+<div class="container head py-4 px-4 my-3 border border-1" style="background-color: rgb(248, 247, 247);">
+    <div class="row g-4">
+        {% if albums %}
+        <h1>Albums</h1>
+        {%for album in albums%}
+        {% if album.artist.is_blacklisted == False %}
+        <div class="col-lg-3 col-md-4 col-6 p-3">
+            <a href="{{url_for('users.album',album_id = album.id)}}" class="text-decoration-none text-light">
+            <div class="beatify-card d-flex flex-column p-4 h-100" style="background-color: rgb(245, 242, 242);" >               
+                    <div>
+                        {%if album.cover_file%}
+                        <img src="{{url_for('main.load_album_image', album_id = album.id)}}" class="img-fluid rounded-1 h-100 w-100">
+                        {%else%}
+                        <img src="{{url_for('static',filename='images/default_album.png')}}" class="img-fluid rounded-1 h-100 w-100">
+                        {%endif%}
+                    </div>
+                    <div class="fs-5 fw-bolder lh-sm mt-3 text-primary">
+                        {{album.title}}
+                    </div>
+                    <div class="fs-6 text-dark">
+                        {{album.artist.name}}
+                    </div>  
+            </div> 
+            </a>         
+        </div>
+        {% endif %}
+        {%endfor%}
+        {%endif%}
+    </div>  
+</div>
+
+
+{%endblock%}
+
+

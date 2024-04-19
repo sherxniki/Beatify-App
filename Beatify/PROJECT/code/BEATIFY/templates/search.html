@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block head %}{{super()}}{%endblock%}
+{%block title%}{{super()}}{%endblock%}
+{%block content%}
+{{super()}}
+<div class="container head mb-3 p-5 rounded-1 ">
+    <h1 >You searched for: '{{search_query}}'</h1>
+    {% if albums or songs %}
+    <hr>
+        {%for song in songs%}
+        <a href="{{url_for('users.song', song_id=song.id)}}" class="text-decoration-none">
+            <div class="search-item p-3 d-flex flex-wrap align-items-center" style="gap:10px">
+                {% if song.cover_file%}
+                <div style="width:auto"><img src="{{url_for('main.load_song_image', song_id=song.id)}}" width="100px" alt=""></div>
+                {%else%}
+                <div style="width:auto"><img src="{{url_for('static', filename='images/default.jpg')}}" width="100px" alt=""></div>
+                {%endif%}
+                <div>
+                    <div>{{song.title}}</div>
+                    <div>{{song.genre}}</div>
+                    <div>{{song.artist.name}}</div>
+                </div>
+            </div>
+        </a>
+        {%endfor%}
+        {% if albums%}
+            <h3 class="text-primary mt-3">Albums :</h3> 
+            <hr>
+        {%endif%}
+        {%for album in albums%}
+        
+        <a href="{{url_for('users.album',album_id=album.id)}}" class="text-decoration-none">
+            <div class="search-item p-3 d-flex flex-wrap align-items-center" style="gap:10px">
+                {% if album.cover_file%}
+                <div style="width:auto"><img src="{{url_for('main.load_album_image', album_id=album.id)}}" width="100px" alt=""></div>
+                {%else%}
+                <div style="width:auto"><img src="{{url_for('static', filename='images/default_album.png')}}" width="100px" alt=""></div>
+                {%endif%}
+                <div>
+                    <div>{{album.title}}</div>
+                    <div>{{album.artist.name}}</div>
+                </div>
+            </div>
+        </a>
+        {%endfor%}
+    {%else%}
+        <div class="text-danger text-center">No result matches your search :((</div>
+    {%endif%}
+
+    
+</div>
+
+
+{%endblock%}
+
+

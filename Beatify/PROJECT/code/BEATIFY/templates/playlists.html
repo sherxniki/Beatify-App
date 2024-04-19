@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{%block title%}{{super()}}{%endblock%}
+{%block content%}
+{{super()}}
+<div class="container p-5 border my-3 border-1">
+    <h2 class="text-primary text-center">Playlists</h2>
+    {% if playlists%}
+    {% for playlist in playlists%}
+            <div class="fs-4 mt-3 border border-primary rounded-2">
+                    <div class="song-item p-3 d-flex flex-wrap align-items-center" style="gap:20px;">
+                        <div class="rounded-3"><img src="{{url_for('static', filename='images/default_playlist.jpg')}}" width="80px"></div>
+                        <div>
+                            <a href="{{url_for('users.playlist', playlist_id=playlist.id)}}">
+                            {{playlist.name}}
+                            </a>
+                        </div>
+                        <div class="btn-toolkit ms-auto">
+                            
+                                <a href="{{url_for('users.edit_playlist', playlist_id = playlist.id)}}" class="btn btn-lg btn-outline-primary" role="button">
+                                    <i class="bi bi-pen"></i>
+                                </a>
+                            
+        
+                                <a class="btn btn-lg btn-outline-danger" href="{{url_for('users.remove_playlist',playlist_id=playlist.id)}}" role="button">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            
+                        </div>
+                    </div>
+            </div>    
+    {% endfor %}
+    {%else%}
+        <div class="text-danger text-center">
+            You do not have any playlists T_T. <br>
+            Click <a href="{{url_for('users.create_playlists')}}">here</a> to start creating one.      
+        </div>
+    {%endif%}
+</div>
+{%endblock%}

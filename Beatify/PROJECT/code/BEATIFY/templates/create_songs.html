@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+{%block title%}{{super()}}{%endblock%}
+{%block content%}
+
+<div class="container">
+    <div class="row my-5">
+        <div class="col-md-6">
+            {{super()}}
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-primary">Create a Song</h2>
+                </div>
+                <div class="card-body">
+            <div class="content-section">
+            <form method="POST" action="" novalidate autocomplete="off" enctype="multipart/form-data">
+                {{form.hidden_tag()}}
+                <div class="form-group" >
+                
+                    {{form.title.label(for_="title", class_="form-control-label")}}
+                    {% if form.title.errors %}
+                        {{form.title(class_="form-control form-control-lg is-invalid mb-3")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.title.errors %}
+                                <span>{{error}}</span>
+                            {%endfor%}
+                        </div> 
+                    {%else%}
+                        {{form.title(class_="form-control form-control-lg mb-3")}}
+                    {%endif%}
+                    
+                </div>
+
+                <div class="form-group mt-2" >
+                    {{form.genre.label(for_="e", class_="form-control-label")}}
+                    <div class="input-group">
+                    {% if form.genre.errors %}
+                            {{form.genre(class_="form-control form-control-lg mb-3 is-invalid")}}
+                            <div class="invalid-feedback">
+                                {%for error in form.genre.errors %}
+                                    <span>{{error}}</span>
+                                {%endfor%}
+                            </div> 
+                        {%else%}
+                            {{form.genre(class_="form-control form-control-lg mb-3")}}
+                        {%endif%} 
+                    </div>
+                </div>
+
+                
+                <div class="form-group mt-2" >
+                    {{form.lyrics.label(for_="e", class_="form-control-label")}}
+                    {% if form.lyrics.errors %}
+                    {{form.lyrics(class_="form-control form-control-lg mb-3 is-invalid")}}
+                    <div class="invalid-feedback">
+                        {%for error in form.lyrics.errors %}
+                        <span>{{error}}</span>
+                        {%endfor%}
+                    </div> 
+                    {%else%}
+                    {{form.lyrics(class_="form-control form-control-lg mb-3")}}
+                    {%endif%} 
+                    
+                </div>
+                <div class="form-group mt-2" >
+                    {{form.song_file.label(for_="e", class_="form-control-label")}} <br>
+                    {% if form.song_file.errors %}
+                        {{form.song_file(class_="form-control-file mb-3 is-invalid")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.song_file.errors %}
+                                <span>{{error}}</span>
+                            {%endfor%}
+                        </div> 
+                    {%else%}
+                        {{form.song_file(class_="form-control-file mb-3 ")}}
+                    {%endif%} 
+                </div>
+                <div class="form-group mt-2" >
+                    {{form.picture_file.label(for="formFile", class="form-label", type="file")}} <br>
+                    {% if form.picture_file.errors %}
+                    {{form.picture_file(class="form-control-file is-invalid mb-3" ,type="file")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.picture_file.errors %}
+                                <span>{{error}}</span>
+                                {%endfor%}
+                            </div>
+                    {%else%}
+                        {{form.picture_file(class="form-control-file mb-3" ,type="file")}}
+                    {%endif%}
+                
+                </div>
+            
+                
+
+                <div class="form-group mt-3">
+                    {{form.submit(class_="btn btn-lg btn-primary")}}
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+{%endblock%}
+
+

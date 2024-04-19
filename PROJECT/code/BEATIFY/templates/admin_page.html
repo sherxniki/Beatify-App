@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{%block title%}{{super()}}{%endblock%}
+{%block content%}
+{{super()}}
+<div class="container mt-5" >
+    <section class="my-5">
+        <h1>General</h1><hr>
+        
+        <div class="row g-3">
+            <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Number of Users</h5>
+                <h1 id="userCount">{{users|length-1}}</h1>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Number of Creators</h5>
+                <h1 id="creatorCount">{{creators|length}}</h1>
+                </div>
+            </div>
+            </div>
+        
+            <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Albums</h5>
+                <h1 id="albumCount">{{albums|length}}</h1>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Songs</h5>
+                <h1 id="songCount">{{songs|length}}</h1>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section>
+        <h1>Statistics</h1><hr>
+         
+        <div class="row g-3 mb-5">
+            <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><h5>Song Popularity (by ratings)</h5></div>
+                <div class="card-body">
+                    <img src="{{url_for('static', filename='stats/songs_statistics.png')}}" alt="" width="100%">
+                </div>
+            </div>
+            </div>
+
+            <div class="col-md-6">
+            <div class="card">                
+                <div class="card-header"><h5>Genre Popularity</h5></div>
+                <div class="card-body">
+                    <img src="{{url_for('static', filename='stats/genre_statistics.png')}}" alt="" width="100%">               
+                
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{%endblock%}
+
+
+
+    
