@@ -1,7 +1,10 @@
 from BEATIFY import application,db
 from BEATIFY.models import *
-app = application()
 
+
+app = application()
+celery_app = app.extensions["celery"]
+app.app_context().push()
 @app.shell_context_processor
 def make_shell_context():
  return dict(db=db, User=User, Song= Song, Album=Album)
