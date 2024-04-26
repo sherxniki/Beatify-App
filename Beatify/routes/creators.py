@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, make_response
 from flask_login import current_user, login_required
-from BEATIFY import db
-from BEATIFY.models import Role, Song, Album, Rating, User
+from Beatify import db
+from Beatify.models import Role, Song, Album, Rating, User
 from ..forms import RegisterAsCreator, PublishSongForm, PublishAlbumForm, EditSongForm, EditAlbumForm, SearchForm
 from ..utilities import role_needed, save_picture, save_track, avg_creator_rating
 

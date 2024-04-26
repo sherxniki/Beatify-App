@@ -1,5 +1,5 @@
 from flask import Blueprint
-from BEATIFY import db
+from Beatify import db
 from sqlalchemy import or_
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import request, url_for, render_template, redirect, flash

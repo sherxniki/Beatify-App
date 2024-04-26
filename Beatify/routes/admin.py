@@ -2,7 +2,7 @@ from flask import Blueprint, current_app, url_for, redirect, flash, render_templ
 from flask_login import login_user, login_required
 from ..forms import AdminLoginForm
 from ..models import User, Song, Album, Rating
-from BEATIFY import db
+from Beatify import db
 from ..utilities import role_needed, avg_rating_for_song, avg_creator_rating, show_stats
 
 admin=Blueprint('admin',__name__)

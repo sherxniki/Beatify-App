@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from celery.schedules import crontab
 from flask_mail import Mail
 from flask_caching import Cache
-from .utils import celery_init_app
+from Beatify.utils import celery_init_app
 import redis
 
 

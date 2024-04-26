@@ -1,5 +1,5 @@
-from BEATIFY import application,db
-from BEATIFY.models import *
+from Beatify import application,db
+from Beatify.models import *
 
 
 app = application()
