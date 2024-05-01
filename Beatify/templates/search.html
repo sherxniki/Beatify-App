@@ -6,11 +6,19 @@
 {{super()}}
 <div class="container head mb-3 p-5 rounded-1 ">
     <h1 >You searched for: '{{search_query}}'</h1>
+     <div id="ratingFilter">
+        <input type="range" min="1" max="5" value="1" class="slider" id="ratingSlider">
+        <p>Rating: <span id="ratingValue"></span></p>
+    </div>
+
+
     {% if albums or songs %}
     <hr>
+
         {%for song in songs%}
         <a href="{{url_for('users.song', song_id=song.id)}}" class="text-decoration-none">
-            <div class="search-item p-3 d-flex flex-wrap align-items-center" style="gap:10px">
+            <div class="search-item p-3 d-flex flex-wrap align-items-center" data-rating="{{song.avg_rating()}}" style="gap:10px">
+
                 {% if song.cover_file%}
                 <div style="width:auto"><img src="{{url_for('main.load_song_image', song_id=song.id)}}" width="100px" alt=""></div>
                 {%else%}
@@ -44,6 +52,28 @@
             </div>
         </a>
         {%endfor%}
+
+        <script>
+            var slider = document.getElementById("ratingSlider");
+            var output = document.getElementById("ratingValue");
+            output.innerHTML = slider.value;
+
+            slider.oninput = function() {
+                output.innerHTML = this.value;
+                var rating = this.value;
+                var songs = document.getElementsByClassName("search-item");
+                for (var i = 0; i < songs.length; i++) {
+                    var songRating = Math.floor(songs[i].getAttribute("data-rating"));
+                    if (!songRating || songRating == rating) {
+                        songs[i].classList.add("d-flex");
+                        songs[i].style.display = "flex";
+                    } else {
+                        songs[i].classList.remove("d-flex");
+                        songs[i].style.display = "none";
+                    }
+                }
+            }
+        </script>
     {%else%}
         <div class="text-danger text-center">No result matches your search :((</div>
     {%endif%}

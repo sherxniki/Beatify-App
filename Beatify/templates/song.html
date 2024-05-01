@@ -19,10 +19,32 @@
           <p class="card-text">{{song.genre}}</p>
           <p class="card-text">{{song.date_uploaded.strftime('%Y-%m-%d')}}</p>
           <p class="card-text">{% if avg_rating %}{{avg_rating}} 🌟 ({{num}}){% else %}<span class="fw-bold">Unrated</span>{%endif%}</p>
-          <audio controls>
+          <audio id="song" controls>
             <source src="{{url_for('main.load_song', song_id = song.id)}}" type="audio/mp3">
             Your browser does not support the audio element.
-          </audio>
+        </audio>
+
+        <script>
+        var song = document.getElementById('song');
+        var apiCalled = false;
+
+        song.addEventListener('timeupdate', function() {
+            if (!apiCalled && song.currentTime >= song.duration / 2) {
+                apiCalled = true;
+                sendPlayEvent({{ song.id }});
+            }
+        });
+
+        function sendPlayEvent(songId) {
+            fetch("{{ url_for('users.song_played') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ song_id: songId })
+            });
+        }
+        </script>
         </div>
         <div class="card-footer">
             <div class="btn-group mt-2">
