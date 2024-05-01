@@ -1,0 +1,2 @@
+celery -A BEATIFY beat --loglevel=info
+celery -A BEATIFY  worker --loglevel=info
