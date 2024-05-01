@@ -2,8 +2,9 @@ from flask import Blueprint, current_app, url_for, redirect, flash, render_templ
 from flask_login import login_user, login_required
 from ..forms import AdminLoginForm
 from ..models import User, Song, Album, Rating
-from Beatify import db
+from Beatify import db, mail
 from ..utilities import role_needed, avg_rating_for_song, avg_creator_rating, show_stats
+from flask_mail import Message
 
 admin=Blueprint('admin',__name__)
 
@@ -15,6 +16,7 @@ def admin_login():
             admin=User.query.filter_by(username=form.username.data).first()
             login_user(admin)
             flash('Logged In as admin.', 'success')
+
             return redirect(url_for('admin.admin_dashboard'))
         else:
             flash('Login Unsuccessful. Please check Username and/or password',category='danger')
